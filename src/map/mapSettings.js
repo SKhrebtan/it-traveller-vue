@@ -1,6 +1,6 @@
-import { mapToken } from './token'
+// import { mapToken } from './token'
 
 export const mapSettings = {
-  style: 'mapbox://styles/mapbox/streets-v12',
-  apiToken: mapToken
+  style: 'mapbox://styles/mapbox/streets-v12'
+  // apiToken: mapToken
 }

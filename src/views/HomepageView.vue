@@ -55,7 +55,7 @@ onMounted(async () => {
         :center="[30.523333, 50.4500001]"
         :zoom="10"
         class="w-full h-full"
-        :access-token="mapApiToken || mapSettings.apiToken"
+        :access-token="mapApiToken"
         :map-style="mapSettings.style"
         @mb-created="(mapInstance) => (map = mapInstance)"
       >
