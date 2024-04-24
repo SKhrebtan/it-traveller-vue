@@ -5,7 +5,7 @@ const emit = defineEmits(['uploaded'])
 const errorMessage = ref('')
 const handleUploadImage = (e) => {
   const file = e.target.files[0]
-  if (file.size > 3 * 1024 * 1024) {
+  if (file.size > 10 * 1024 * 1024) {
     errorMessage.value = 'File is too big'
     return
   }
@@ -20,7 +20,12 @@ const handleUploadImage = (e) => {
 <template>
   <div>
     <label class="cursor-pointer hover:text-primary">
-      <input type="file" accept="image/*" class="hidden" @change="handleUploadImage" />
+      <input
+        type="file"
+        accept="image/*"
+        class="hidden"
+        @change="handleUploadImage"
+      />
       <span class="flex gap-1 items-center">
         <UploadIcon />
         <span class="underline text-xs"><slot></slot></span>
