@@ -51,7 +51,7 @@ const link = computed(() => {
   >
     <!-- <div v-if="$slots.default">OK</div> -->
     <template v-if="props.isLoading">Loading...</template>
-    <template v-if="props.isDisabled">Choose place first</template>
+    <template v-else-if="props.isDisabled">Choose place first</template>
     <template v-else><slot></slot></template>
   </component>
 </template>
