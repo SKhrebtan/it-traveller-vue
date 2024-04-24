@@ -10,8 +10,9 @@ import MarkerIcon from '../assets/imgs/MarkerIcon.vue'
 import { useModal } from '../composables/useModal'
 import CreateNewPlace from '@/components/CreateNewPlaceModal/CreateNewPlace.vue'
 import { useMutation } from '@/composables/useMutations'
+import UserInfo from '../components/UserInfo/UserInfo.vue'
+import LogoutButton from '../components/LogoutButton/LogoutButton.vue'
 
-// const favoritePlaces = ref([])
 const { isOpen, closeModal, openModal } = useModal()
 
 const activeId = ref(null)
@@ -30,7 +31,6 @@ const {
 const favoritePlaces = computed(() => data.value ?? [])
 // eslint-disable-next-line no-undef
 const mapApiToken = process.env.VUE_APP_ENV_MAPBOX_API_TOKEN
-console.log(favoritePlaces)
 const {
   mutation: addPlace,
   isLoading: isAddingPlace,
@@ -70,7 +70,10 @@ const handleMapClick = ({ lngLat }) => {
 
 <template>
   <main class="flex h-screen">
-    <div class="bg-white h-full w-[400px] shrink-0 overflow-auto pb-10">
+    <div
+      class="relative bg-white h-full w-[400px] shrink-0 overflow-auto pb-10"
+    >
+      <UserInfo />
       <FavoritePlaces
         :items="favoritePlaces"
         :active-id="activeId"
@@ -78,7 +81,9 @@ const handleMapClick = ({ lngLat }) => {
         @place-clicked="changePlace"
         @create="openModal"
         @updated="getPlaces"
+        :is-disabled="mapMarkerLngLat"
       />
+      <LogoutButton class="mt-10" />
       <CreateNewPlace
         :is-open="isOpen"
         @close="closeModal"

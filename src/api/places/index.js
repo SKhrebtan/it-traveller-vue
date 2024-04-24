@@ -17,5 +17,5 @@ export const updateFavoritePlaces = (body) => {
 }
 
 export const deleteFavoritePlaces = (id) => {
-  return clientFetch.delete(BASE_PLACES_URL, id)
+  return clientFetch.delete(`${BASE_PLACES_URL}/${id}`)
 }
