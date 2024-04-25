@@ -42,7 +42,7 @@ const resetForm = () => {
 </script>
 
 <template>
-  <IModal v-if="props.isOpen" @close="emit('close')">
+  <IModal @close="emit('close')" :is-open="props.isOpen">
     <form
       @submit.prevent="emit('submit', formData, resetForm)"
       class="min-w-[260px] modals:min-w-[420px]"

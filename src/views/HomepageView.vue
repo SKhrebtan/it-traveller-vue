@@ -19,6 +19,11 @@ const { isOpen, closeModal, openModal } = useModal()
 const activeId = ref(null)
 const map = ref(null)
 const mapMarkerLngLat = ref(null)
+const showMobile = ref(false)
+const isMobile = ref(false)
+const toggleNav = () => {
+  showMobile.value = !showMobile.value
+}
 const changeActiveId = (id) => {
   activeId.value = id
 }
@@ -59,43 +64,41 @@ const changePlace = (id) => {
   changeActiveId(id)
   map.value.flyTo({ center: coordinates, zoom: 13, speed: 2 })
 }
-const isMobile = ref(false)
+
+const handleResize = () => {
+  isMobile.value = window.innerWidth < 768
+  console.log(isMobile.value)
+}
 onMounted(() => {
   getPlaces()
   isMobile.value = window.innerWidth < 768
 
-  window.addEventListener('resize', () => {
-    isMobile.value = window.innerWidth < 768
-  })
+  window.addEventListener('resize', handleResize)
 })
+
 onUnmounted(() => {
-  window.removeEventListener('resize', () => {
-    isMobile.value = window.innerWidth < 768
-  })
+  window.removeEventListener('resize', handleResize)
 })
+
 const handleMapClick = ({ lngLat }) => {
   mapMarkerLngLat.value = [lngLat.lng, lngLat.lat]
-}
-
-const showMobile = ref(false)
-
-const toggleNav = () => {
-  showMobile.value = !showMobile.value
 }
 </script>
 
 <template>
   <main class="flex h-screen relative">
-    <button
-      v-if="!showMobile"
-      class="fixed top-0 left-0 w-[40px] h-[40px] bg-[#ffe6dc] z-50 flex items-center justify-center"
-      @click="toggleNav"
-    >
-      <BurgerIcon />
-    </button>
+    <transition name="come">
+      <button
+        v-if="isMobile && !showMobile"
+        class="fixed top-0 left-0 w-[40px] h-[40px] bg-[#ffe6dc] z-50 flex items-center justify-center"
+        @click="toggleNav"
+      >
+        <BurgerIcon />
+      </button>
+    </transition>
     <transition name="fade">
       <div
-        v-if="showMobile"
+        v-if="showMobile || !isMobile"
         class="fixed top-0 left-0 h-full bg-white w-[260px] tablet:w-[400px] shrink-0 overflow-auto z-20"
       >
         <UserInfo
@@ -115,16 +118,15 @@ const toggleNav = () => {
           :is-disabled="mapMarkerLngLat"
         />
         <LogoutButton v-if="isMobile" class="mt-6 pl-6" />
-        <CreateNewPlace
-          :is-open="isOpen"
-          @close="closeModal"
-          @submit="handleAddPlace"
-          :is-loading="isAddingPlace"
-          :has-error="error"
-        />
       </div>
     </transition>
-
+    <CreateNewPlace
+      :is-open="isOpen"
+      @close="closeModal"
+      @submit="handleAddPlace"
+      :is-loading="isAddingPlace"
+      :has-error="error"
+    />
     <div class="w-full h-full flex items-center justify-center text-6xl">
       <MapboxMap
         :center="[30.523333, 50.4500001]"
@@ -167,6 +169,19 @@ const toggleNav = () => {
 
 .fade-enter-from,
 .fade-leave-to {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.come-enter-active,
+.come-leave-active {
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+.come-enter-from,
+.come-leave-to {
   opacity: 0;
   transform: translateX(-100%);
 }

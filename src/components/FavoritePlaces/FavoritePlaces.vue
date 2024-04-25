@@ -88,7 +88,7 @@ const handleDeleteOpen = (id) => {
     <div v-if="props.isUpdating" class="h-[200px]">Updating list...</div>
     <div v-if="props.items.length === 0 && !isUpdating">List is empty</div>
     <div
-      class="overflow-y-scroll h-[330px] tablet:h-[330px] desktop:h-[440px] pr-2"
+      class="overflow-y-auto h-[330px] tablet:h-[330px] desktop:h-[440px] pr-2"
       v-if="!props.isUpdating"
     >
       <FavoritePlace
