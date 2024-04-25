@@ -43,12 +43,20 @@ const resetForm = () => {
 
 <template>
   <IModal v-if="props.isOpen" @close="emit('close')">
-    <form @submit.prevent="emit('submit', formData, resetForm)" class="min-w-[420px]">
+    <form
+      @submit.prevent="emit('submit', formData, resetForm)"
+      class="min-w-[260px] modals:min-w-[420px]"
+    >
       <div class="flex gap-[10px] justify-center font-bold text-center mb-10">
         <MarkerIcon /> Add marker
       </div>
       <IInput label="Title" class="mb-4" v-model="formData.title" />
-      <IInput label="Description" type="textarea" class="mb-2" v-model="formData.description" />
+      <IInput
+        label="Description"
+        type="textarea"
+        class="mb-2"
+        v-model="formData.description"
+      />
       <div class="flex gap-2 items-center mb-10">
         <img
           v-if="formData.img"
@@ -59,8 +67,12 @@ const resetForm = () => {
         <InputImage @uploaded="handleUpload">{{ uploadText }}</InputImage>
       </div>
 
-      <IButton class="w-full" variant="gradient" :is-loading="props.isLoading">Add</IButton>
-      <div v-if="props.hasError" class="text-red-500">Something went wrong...</div>
+      <IButton class="w-full" variant="gradient" :is-loading="props.isLoading"
+        >Add</IButton
+      >
+      <div v-if="props.hasError" class="text-red-500">
+        Something went wrong...
+      </div>
     </form>
   </IModal>
 </template>

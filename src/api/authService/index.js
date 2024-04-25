@@ -20,7 +20,6 @@ class AuthService {
     localStorage.removeItem(TOKEN_KEY)
   }
   async login(body) {
-    console.log(this)
     const { data } = await clientFetch.post('user/login', body)
     const { accessToken } = data
     this.setToken(accessToken)
@@ -35,9 +34,13 @@ class AuthService {
     this.clearToken()
   }
   async refresh() {
-    const { data } = clientFetch.get('user/refresh')
-    const { accessToken } = data
-    this.setToken(accessToken)
+    try {
+      const { data } = clientFetch.post('user/refresh')
+      const { accessToken } = data
+      this.setToken(accessToken)
+    } catch (error) {
+      this.clearToken()
+    }
   }
 }
 

@@ -42,7 +42,7 @@ const handleChangeImg = (url) => {
 
 <template>
   <IModal v-if="props.isOpen" @close="emit('close')">
-    <div class="w-[750px]">
+    <div class="w-[290px] modals:w-[400px] tablet:w-[680px]">
       <div class="flex gap-2 items-center mb-10">
         <MarkerIcon height="18" width="18" />
         <span class="font-bold text-base">Редагувати маркер</span>

@@ -6,6 +6,11 @@ export default {
       colors: {
         primary: '#F3743D',
         gray: '#939393'
+      },
+      screens: {
+        modals: '540px',
+        tablet: '768px',
+        desktop: '1140px'
       }
     }
   },

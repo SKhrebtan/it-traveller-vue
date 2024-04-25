@@ -13,9 +13,11 @@ onUnmounted(() => (document.body.style.overflow = 'initial'))
   <component :is="Teleport" to="body">
     <div
       @click.self="emit('close')"
-      class="flex w-full h-full fixed top-0 left-0 overflow-auto bg-[rgba(0,0,0,0.3)]"
+      class="flex w-full h-full fixed top-0 left-0 overflow-auto bg-[rgba(0,0,0,0.3)] z-50"
     >
-      <div class="relative bg-white min-w-[350px] m-auto text-black rounded-2xl p-10">
+      <div
+        class="relative bg-white desktop:min-w-[350px] m-auto text-black rounded-2xl p-10"
+      >
         <button class="absolute right-3 top-3">
           <CrossIcon class="w-6 h-6" @click="emit('close')" />
         </button>

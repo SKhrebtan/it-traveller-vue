@@ -85,18 +85,24 @@ const handleDeleteOpen = (id) => {
 <template>
   <div class="px-6 text-black">
     <div class="text-gray mb-4">Додані маркери</div>
+    <div v-if="props.isUpdating" class="h-[200px]">Updating list...</div>
     <div v-if="props.items.length === 0 && !isUpdating">List is empty</div>
-    <FavoritePlace
-      v-for="place in props.items"
-      :key="place.id"
-      :title="place.title"
-      :description="place.description"
-      :img="place.img"
-      :is-active="place.id === props.activeId"
-      @click="emit('place-clicked', place.id)"
-      @edit="handleEditOpen(place.id)"
-      @delete="handleDeleteOpen(place.id)"
-    />
+    <div
+      class="overflow-y-scroll h-[330px] tablet:h-[330px] desktop:h-[440px] pr-2"
+      v-if="!props.isUpdating"
+    >
+      <FavoritePlace
+        v-for="place in props.items"
+        :key="place.id"
+        :title="place.title"
+        :description="place.description"
+        :img="place.img"
+        :is-active="place.id === props.activeId"
+        @click="emit('place-clicked', place.id)"
+        @edit="handleEditOpen(place.id)"
+        @delete="handleDeleteOpen(place.id)"
+      />
+    </div>
     <EditPlaceModal
       @submit="handleSumbit"
       :is-open="isEditOpen"
@@ -112,9 +118,9 @@ const handleDeleteOpen = (id) => {
       @cancel="closeDeleteModal"
       @confirm="handleDeletePlace"
     />
-    <div v-if="props.isUpdating">Updating list...</div>
+
     <IButton
-      class="w-full mt-10"
+      class="w-full mt-6"
       variant="gradient"
       @click="emit('create')"
       :disabled="isBtnDisabled"

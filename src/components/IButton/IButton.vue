@@ -21,14 +21,13 @@ const props = defineProps({
 })
 
 const bgStyles = computed(() => {
-  console.log(props.isDisabled)
   if (props.isDisabled) return 'disabled:bg-zinc-500 cursor-not-allowed'
   if (props.variant === 'outlined') {
     return 'bg-white text-[#FFA279] border-[1px] border-[#FFA279]'
   }
   return props.variant === 'gradient'
-    ? 'bg-gradient-to-r from-[#FFA279] to-[#F3743D]'
-    : 'bg-[#FFA279]'
+    ? 'bg-gradient-to-r from-[#FFA279] to-[#F3743D] text-white'
+    : 'bg-[#FFA279] text-white'
 })
 
 const componentName = computed(() => {
@@ -47,7 +46,7 @@ const link = computed(() => {
     :to="link"
     :is="componentName"
     :class="bgStyles"
-    class="py-3 px-10 text-white font-bold -tracking-wider rounded-xl"
+    class="py-3 px-10 font-bold -tracking-wider rounded-xl"
   >
     <!-- <div v-if="$slots.default">OK</div> -->
     <template v-if="props.isLoading">Loading...</template>
