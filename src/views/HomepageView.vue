@@ -36,7 +36,7 @@ const {
 })
 const favoritePlaces = computed(() => data.value ?? [])
 // eslint-disable-next-line no-undef
-const mapApiToken = process.env.VUE_APP_ENV_MAPBOX_API_TOKEN
+// const mapApiToken = process.env.VUE_APP_ENV_MAPBOX_API_TOKEN
 const {
   mutation: addPlace,
   isLoading: isAddingPlace,
@@ -132,7 +132,7 @@ const handleMapClick = ({ lngLat }) => {
         :center="[30.523333, 50.4500001]"
         :zoom="10"
         class="w-full h-full"
-        :access-token="mapApiToken"
+        <!-- :access-token="mapApiToken" -->
         :map-style="mapSettings.style"
         @mb-click="handleMapClick"
         @mb-created="(mapInstance) => (map = mapInstance)"

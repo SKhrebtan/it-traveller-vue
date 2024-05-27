@@ -12,7 +12,7 @@ class AuthService {
     return this.#token
   }
   setToken(token) {
-    localStorage.setItem(TOKEN_KEY, token)
+    localStorage.setItem(TOKEN_KEY, JSON.stringify(token))
     this.#token = token
   }
   clearToken() {
